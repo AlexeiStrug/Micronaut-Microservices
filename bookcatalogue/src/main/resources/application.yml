@@ -1,0 +1,48 @@
+micronaut:
+  application:
+    name: bookcatalogue
+  server:
+    port: 8081
+
+eureka:
+  client:
+    registration:
+      enabled: true
+      fail-fast: false
+      retry-count: 10
+      retry-delay: 5s
+    defaultZone: "${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}"
+
+tracing:
+  zipkin:
+    http:
+      url: http://127.0.0.1:9411
+    enabled: true
+    sampler:
+      probability: 1
+
+#datasources:
+#  default:
+#    url: jdbc:h2:mem:devDb
+#    driverClassName: org.h2.Driver
+#    username: sa
+#    password: ''
+#    schema-generate: CREATE_DROP
+#    dialect: H2
+
+datasources:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/predator?ssl=false
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: postgres
+
+jpa:
+  default:
+    packages-to-scan:
+      - 'example.micronaut.bookcatalogue.model'
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        show_sql: true
